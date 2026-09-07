@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Remote Control</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="remote">
+
+    <!-- Page toggle -->
+    <div class="toggle-wrap three">
+      <button id="tab-controls" class="toggle-opt active"></button>
+      <button id="tab-media" class="toggle-opt"></button>
+      <button id="tab-screen" class="toggle-opt"></button>
+      <div id="toggle-slider" class="toggle-slider"></div>
+    </div>
+
+    <!-- Page 1: Controls -->
+    <div id="page-controls" class="page">
+      <!-- Text input -->
+      <div class="row text-bar">
+        <input id="text-input" type="text" class="text-input" placeholder="Tap to type..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <!-- D-Pad -->
+      <div class="dpad">
+        <button class="dpad-center" data-kc="23">
+          <span class="dpad-center-dot"></span>
+        </button>
+        <button class="dpad-dir dpad-up" data-kc="19">
+          <span class="dpad-arrow dpad-arrow-up"></span>
+        </button>
+        <button class="dpad-dir dpad-right" data-kc="22">
+          <span class="dpad-arrow dpad-arrow-right"></span>
+        </button>
+        <button class="dpad-dir dpad-left" data-kc="21">
+          <span class="dpad-arrow dpad-arrow-left"></span>
+        </button>
+        <button class="dpad-dir dpad-down" data-kc="20">
+          <span class="dpad-arrow dpad-arrow-down"></span>
+        </button>
+      </div>
+      <!-- Navigation row -->
+      <div class="row nav-bar">
+        <button class="nav-btn" data-kc="4" title="Back">&#x2190;</button>
+        <button class="nav-btn" data-kc="3" title="Home">&#x2302;</button>
+        <button class="nav-btn" data-kc="82" title="Menu">&#x2630;</button>
+      </div>
+    </div>
+
+    <!-- Page 2: Media -->
+    <div id="page-media" class="page" hidden>
+      <!-- Volume -->
+      <div class="media-section">
+        <div class="media-label">Volume</div>
+        <div class="row">
+          <button class="media-btn" data-kc="25" title="Volume Down">-</button>
+          <button id="mute-btn" class="media-btn mute" data-kc="164" title="Mute">Mute</button>
+          <button class="media-btn" data-kc="24" title="Volume Up">+</button>
+        </div>
+      </div>
+      <!-- Media controls -->
+      <div class="media-section">
+        <div class="media-label">Playback</div>
+        <div class="row">
+          <button class="media-btn" data-kc="88" title="Previous">&#x276E;&#x276E;</button>
+          <button class="media-btn" data-kc="89" title="Rewind">&#x276E;</button>
+          <button class="media-btn play" data-kc="85" title="Play/Pause">&#x25B6;</button>
+          <button class="media-btn" data-kc="90" title="Fast Forward">&#x276F;</button>
+          <button class="media-btn" data-kc="87" title="Next">&#x276F;&#x276F;</button>
+        </div>
+      </div>
+      <!-- Sleep / Wake -->
+      <div class="media-section">
+        <div class="media-label">Power</div>
+        <div class="row">
+          <button class="media-btn wide" data-kc="223" title="Sleep">Sleep</button>
+          <button class="media-btn wide" data-kc="224" title="Wake Up">Wake</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 3: Screen -->
+    <div id="page-screen" class="page" hidden>
+      <div class="media-section">
+        <div class="row">
+          <button id="screenshot-btn" class="media-btn wide">Capture</button>
+          <button id="screenshot-refresh" class="media-btn wide">Refresh</button>
+        </div>
+        <div id="screenshot-wrap" class="screenshot-wrap" hidden>
+          <img id="screenshot-img" class="screenshot-img" src="/screen.png" alt="Screenshot">
+        </div>
+      </div>
+    </div>
+
+    <div id="status" class="status"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

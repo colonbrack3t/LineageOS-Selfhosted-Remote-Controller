@@ -1,0 +1,379 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #1a1a2e;
+  color: #eee;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  padding: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.remote {
+  max-width: 380px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 16px;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #8888cc;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  background: #2a2a4a;
+  color: #ddd;
+  border: 1px solid #3a3a5a;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-align: center;
+  padding: 0;
+  transition: background 0.1s, transform 0.08s;
+}
+
+.btn:active,
+.btn.active {
+  background: #4a4a7a;
+  transform: scale(0.94);
+}
+
+.btn.small {
+  width: 52px;
+  height: 52px;
+  font-size: 1.2rem;
+}
+
+.btn.medium {
+  height: 52px;
+  padding: 0 18px;
+  font-size: 0.9rem;
+}
+
+.btn.circle {
+  font-size: 1.5rem;
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+}
+/* ---------- rows ---------- */
+
+.row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+/* ---------- D-Pad ---------- */
+
+.dpad {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.dpad-dir {
+  display: flex;
+  width: 50%;
+  height: 50%;
+  float: left;
+  justify-content: center;
+  align-items: center;
+  background: #2a2a4a;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.1s;
+}
+
+.dpad-dir:active,
+.dpad-dir.active {
+  background: #4a4a7a;
+}
+
+.dpad-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 33%;
+  height: 33%;
+  border-radius: 50%;
+  background: #3a3a6a;
+  border: 2px solid #5a5a8a;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  transition: background 0.1s;
+}
+
+.dpad-center:active,
+.dpad-center.active {
+  background: #5a5a9a;
+}
+
+.dpad-center-dot {
+  width: 50%;
+  height: 50%;
+  background: #8888cc;
+  border-radius: 50%;
+}
+
+.dpad-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dpad-arrow::before {
+  content: '';
+  display: block;
+  height: 18%;
+  width: 18%;
+  border-right: 3px solid #aac;
+  border-top: 3px solid #aac;
+}
+
+.dpad-arrow-up::before    { transform: rotate(-90deg); margin-bottom: -15%; margin-right: -15%; }
+.dpad-arrow-right::before { transform: rotate(0deg);   margin-left: -15%;   margin-bottom: -15%; }
+.dpad-arrow-left::before  { transform: rotate(180deg); margin-top: -15%;    margin-right: -15%; }
+.dpad-arrow-down::before  { transform: rotate(90deg);  margin-top: -15%;    margin-left: -15%; }
+
+/* ---------- nav bar ---------- */
+
+.nav-btn {
+  flex: 1;
+  height: 44px;
+  background: none;
+  border: none;
+  color: #667;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.1s;
+  padding: 0;
+  line-height: 1;
+}
+
+.nav-btn:active {
+  color: #aac;
+}
+
+/* ---------- media page ---------- */
+
+.media-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.media-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #445;
+}
+
+.media-btn {
+  height: 48px;
+  min-width: 48px;
+  padding: 0 12px;
+  background: none;
+  border: none;
+  color: #889;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: color 0.1s, background 0.1s;
+  line-height: 1;
+}
+
+.media-btn:active {
+  color: #eee;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.media-btn.play {
+  width: 56px;
+  height: 56px;
+  font-size: 1.3rem;
+  color: #aac;
+}
+
+.media-btn.mute {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.media-btn.mute.muted {
+  text-decoration: line-through;
+  color: #c55;
+}
+
+.media-btn.wide {
+  flex: 1;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- text input ---------- */
+
+.text-bar {
+  align-items: center;
+}
+
+.text-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  font-size: 1rem;
+  color: #eee;
+  background: #2a2a4a;
+  border: 1px solid #3a3a5a;
+  border-radius: 10px;
+  outline: none;
+}
+
+.text-input:focus {
+  border-color: #6a6aaa;
+}
+
+/* ---------- pages ---------- */
+
+.page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.page[hidden] {
+  display: none;
+}
+
+/* ---------- toggle ---------- */
+
+.toggle-wrap {
+  position: relative;
+  display: flex;
+  width: 200px;
+  height: 36px;
+  background: #2a2a4a;
+  border-radius: 18px;
+  padding: 3px;
+}
+
+.toggle-opt {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s;
+}
+
+.toggle-opt.active {
+  color: #eee;
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: #3a3a6a;
+  border-radius: 15px;
+  transition: transform 0.25s ease;
+}
+
+.toggle-slider.pos-1 {
+  transform: translateX(100%);
+}
+
+.three .toggle-slider {
+  width: calc(33.33% - 2px);
+}
+
+.toggle-slider.pos-2 {
+  transform: translateX(200%);
+}
+
+/* ---------- status ---------- */
+
+.status {
+  font-size: 0.8rem;
+  color: #666;
+  height: 1.2em;
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.status.error {
+  color: #cc4444;
+}
+
+.status.ok {
+  color: #44cc44;
+}
+
+/* ---------- screenshot ---------- */
+
+.screenshot-wrap {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.screenshot-wrap[hidden] {
+  display: none;
+}
+
+.screenshot-img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  opacity: 0.9;
+}
