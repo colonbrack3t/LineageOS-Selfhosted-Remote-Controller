@@ -20,7 +20,7 @@ ssh root@[LineageOS IP]
 sh /data/local/remote/server.sh
 ```
 
-4) On phone / different device, navigate to `[LineageOS IP]:8080`.
+4) On phone / different device, navigate to `[LineageOS IP]:8000`.
 
 Confirm you can see the remote control, test that buttons work as expected etc.
 
