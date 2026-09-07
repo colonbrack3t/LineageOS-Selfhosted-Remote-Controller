@@ -1,6 +1,11 @@
 # LineageOS-Selfhosted-Remote-Controller
 Simple extendable remote controller for LineageOS / Android devices. Serves up a remote control web ui on the LineageOS's IP, allows anyone to control the device.
 
+<img width="198" height="392" alt="Screenshot 2026-09-07 at 08 38 38" src="https://github.com/user-attachments/assets/d9837690-85a2-472d-83fe-a58814febba6" />
+<img width="198" height="392" alt="Screenshot 2026-09-07 at 08 40 20" src="https://github.com/user-attachments/assets/c4185ae5-4b10-403a-ae63-6b3df5630c21" />
+<img width="198" height="392" alt="Screenshot 2026-09-07 at 08 39 06" src="https://github.com/user-attachments/assets/4f2a4d54-df85-4b45-abd3-15f1839be896" />
+
+
 ## To use
 
 ### Prerequisite
