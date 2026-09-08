@@ -1,3 +1,12 @@
+:root {
+  --pip: #00ff41;
+  --pip-dim: #00aa2a;
+  --pip-bright: #33ff66;
+  --pip-bg: #001a00;
+  --pip-surface: #002200;
+  --pip-glow: 0 0 8px #00ff4180, 0 0 2px #00ff41;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,16 +15,53 @@
 }
 
 body {
-  background: #1a1a2e;
-  color: #eee;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #000;
+  color: var(--pip);
+  font-family: "VT323", monospace;
+  font-size: 18px;
   display: flex;
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-  padding: 16px;
+  padding: 0;
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* ---------- CRT screen ---------- */
+
+.screen {
+  position: relative;
+  text-shadow: var(--pip-glow);
+}
+
+.screen::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.15) 50%
+  );
+  background-size: 100% 3px;
+  -webkit-mask-image: none;
+}
+
+.screen::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 101;
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes crt-sweep {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 10000%; }
 }
 
 .remote {
@@ -27,59 +73,13 @@ body {
   align-items: center;
   gap: 20px;
   padding: 24px 16px;
+  background: var(--pip-bg);
+  min-height: 100vh;
+  background-image: linear-gradient(0deg, transparent 10%, rgba(0, 255, 65, 0.06) 50%, transparent 90%);
+  background-size: 100% 80%;
+  animation: crt-sweep 80s linear infinite;
 }
 
-.title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #8888cc;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-/* ---------- buttons ---------- */
-
-.btn {
-  background: #2a2a4a;
-  color: #ddd;
-  border: 1px solid #3a3a5a;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  text-align: center;
-  padding: 0;
-  transition: background 0.1s, transform 0.08s;
-}
-
-.btn:active,
-.btn.active {
-  background: #4a4a7a;
-  transform: scale(0.94);
-}
-
-.btn.small {
-  width: 52px;
-  height: 52px;
-  font-size: 1.2rem;
-}
-
-.btn.medium {
-  height: 52px;
-  padding: 0 18px;
-  font-size: 0.9rem;
-}
-
-.btn.circle {
-  font-size: 1.5rem;
-  border-radius: 100%;
-  width: 60px;
-  height: 60px;
-  min-width: 60px;
-}
 /* ---------- rows ---------- */
 
 .row {
@@ -100,6 +100,7 @@ body {
   overflow: hidden;
   transform: rotate(45deg);
   flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
 }
 
 .dpad-dir {
@@ -109,8 +110,8 @@ body {
   float: left;
   justify-content: center;
   align-items: center;
-  background: #2a2a4a;
-  border: none;
+  background: var(--pip-surface);
+  border: 1px solid #004400;
   cursor: pointer;
   padding: 0;
   transition: background 0.1s;
@@ -118,7 +119,8 @@ body {
 
 .dpad-dir:active,
 .dpad-dir.active {
-  background: #4a4a7a;
+  background: #004d00;
+  box-shadow: inset 0 0 15px rgba(0, 255, 65, 0.2);
 }
 
 .dpad-center {
@@ -129,8 +131,8 @@ body {
   width: 33%;
   height: 33%;
   border-radius: 50%;
-  background: #3a3a6a;
-  border: 2px solid #5a5a8a;
+  background: #003300;
+  border: 2px solid var(--pip-dim);
   cursor: pointer;
   z-index: 2;
   display: flex;
@@ -138,18 +140,21 @@ body {
   align-items: center;
   padding: 0;
   transition: background 0.1s;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
 }
 
 .dpad-center:active,
 .dpad-center.active {
-  background: #5a5a9a;
+  background: #005500;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
 }
 
 .dpad-center-dot {
   width: 50%;
   height: 50%;
-  background: #8888cc;
+  background: var(--pip);
   border-radius: 50%;
+  box-shadow: 0 0 6px var(--pip);
 }
 
 .dpad-arrow {
@@ -165,8 +170,13 @@ body {
   display: block;
   height: 18%;
   width: 18%;
-  border-right: 3px solid #aac;
-  border-top: 3px solid #aac;
+  border-right: 3px solid var(--pip-dim);
+  border-top: 3px solid var(--pip-dim);
+}
+
+.dpad-dir:active .dpad-arrow::before,
+.dpad-dir.active .dpad-arrow::before {
+  border-color: var(--pip-bright);
 }
 
 .dpad-arrow-up::before    { transform: rotate(-90deg); margin-bottom: -15%; margin-right: -15%; }
@@ -180,17 +190,45 @@ body {
   flex: 1;
   height: 44px;
   background: none;
-  border: none;
-  color: #667;
-  font-size: 1.3rem;
+  border: 1px solid var(--pip-dim);
+  color: var(--pip-dim);
+  font-family: "VT323", monospace;
+  font-size: 1.8rem;
   cursor: pointer;
-  transition: color 0.1s;
+  transition: color 0.08s, text-shadow 0.08s, background 0.08s;
   padding: 0;
   line-height: 1;
+  border-radius: 4px;
 }
 
 .nav-btn:active {
-  color: #aac;
+  background: var(--pip);
+  color: var(--pip-bg);
+  text-shadow: none;
+}
+
+.nav-btn.mute {
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nav-btn.mute.muted {
+  text-decoration: line-through;
+  color: #ff3333;
+  border-color: #ff3333;
+  text-shadow: 0 0 8px #ff333380;
+}
+
+/* ---------- section labels ---------- */
+
+.section-label {
+  width: 100%;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--pip);
+  text-align: left;
 }
 
 /* ---------- media page ---------- */
@@ -204,10 +242,10 @@ body {
 }
 
 .media-label {
-  font-size: 0.7rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #445;
+  letter-spacing: 0.15em;
+  color: var(--pip);
 }
 
 .media-btn {
@@ -215,41 +253,45 @@ body {
   min-width: 48px;
   padding: 0 12px;
   background: none;
-  border: none;
-  color: #889;
-  font-size: 1rem;
+  border: 1px solid var(--pip-dim);
+  color: var(--pip-dim);
+  font-family: "VT323", monospace;
+  font-size: 1.1rem;
   cursor: pointer;
-  border-radius: 12px;
-  transition: color 0.1s, background 0.1s;
+  border-radius: 4px;
+  transition: color 0.08s, text-shadow 0.08s, background 0.08s;
   line-height: 1;
 }
 
-.media-btn:active {
-  color: #eee;
-  background: rgba(255, 255, 255, 0.06);
+.media-btn:active,
+.media-btn.active {
+  background: var(--pip);
+  color: var(--pip-bg);
+  text-shadow: none;
 }
 
 .media-btn.play {
   width: 56px;
   height: 56px;
-  font-size: 1.3rem;
-  color: #aac;
+  font-size: 1.4rem;
+  color: var(--pip);
 }
 
 .media-btn.mute {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .media-btn.mute.muted {
   text-decoration: line-through;
-  color: #c55;
+  color: #ff3333;
+  text-shadow: 0 0 8px #ff333380;
 }
 
 .media-btn.wide {
   flex: 1;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   letter-spacing: 0.05em;
 }
 
@@ -257,22 +299,51 @@ body {
 
 .text-bar {
   align-items: center;
+  gap: 8px;
+}
+
+.clear-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  background: none;
+  border: 1px solid var(--pip-dim);
+  color: var(--pip-dim);
+  font-family: "VT323", monospace;
+  font-size: 1.6rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.08s, background 0.08s, text-shadow 0.08s;
+  line-height: 1;
+}
+
+.clear-btn:active {
+  background: var(--pip);
+  color: var(--pip-bg);
+  text-shadow: none;
 }
 
 .text-input {
   width: 100%;
   height: 48px;
   padding: 0 14px;
-  font-size: 1rem;
-  color: #eee;
-  background: #2a2a4a;
-  border: 1px solid #3a3a5a;
-  border-radius: 10px;
+  font-family: "VT323", monospace;
+  font-size: 1.1rem;
+  color: var(--pip);
+  background: var(--pip-surface);
+  border: 1px solid #004400;
+  border-radius: 4px;
   outline: none;
+  caret-color: var(--pip);
+}
+
+.text-input::placeholder {
+  color: #005500;
 }
 
 .text-input:focus {
-  border-color: #6a6aaa;
+  border-color: var(--pip-dim);
+  box-shadow: 0 0 8px rgba(0, 255, 65, 0.15);
 }
 
 /* ---------- pages ---------- */
@@ -289,6 +360,30 @@ body {
   display: none;
 }
 
+.page-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.back-btn {
+  background: none;
+  border: 1px solid var(--pip-dim);
+  color: var(--pip-dim);
+  font-family: "VT323", monospace;
+  font-size: 1.2rem;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.08s, background 0.08s, text-shadow 0.08s;
+}
+
+.back-btn:active {
+  background: var(--pip);
+  color: var(--pip-bg);
+  text-shadow: none;
+}
+
 /* ---------- toggle ---------- */
 
 .toggle-wrap {
@@ -296,8 +391,9 @@ body {
   display: flex;
   width: 200px;
   height: 36px;
-  background: #2a2a4a;
-  border-radius: 18px;
+  background: var(--pip-surface);
+  border: 1px solid #004400;
+  border-radius: 4px;
   padding: 3px;
 }
 
@@ -305,8 +401,9 @@ body {
   flex: 1;
   background: none;
   border: none;
-  color: #666;
-  font-size: 0.8rem;
+  color: #005500;
+  font-family: "VT323", monospace;
+  font-size: 0.9rem;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -314,7 +411,7 @@ body {
 }
 
 .toggle-opt.active {
-  color: #eee;
+  color: var(--pip);
 }
 
 .toggle-slider {
@@ -323,9 +420,11 @@ body {
   left: 3px;
   width: calc(50% - 3px);
   height: calc(100% - 6px);
-  background: #3a3a6a;
-  border-radius: 15px;
+  background: #003300;
+  border: 1px solid var(--pip-dim);
+  border-radius: 2px;
   transition: transform 0.25s ease;
+  box-shadow: 0 0 6px rgba(0, 255, 65, 0.15);
 }
 
 .toggle-slider.pos-1 {
@@ -343,19 +442,20 @@ body {
 /* ---------- status ---------- */
 
 .status {
-  font-size: 0.8rem;
-  color: #666;
+  font-size: 0.9rem;
+  color: #005500;
   height: 1.2em;
   text-align: center;
   transition: color 0.2s;
 }
 
 .status.error {
-  color: #cc4444;
+  color: #ff3333;
+  text-shadow: 0 0 8px #ff333380;
 }
 
 .status.ok {
-  color: #44cc44;
+  color: var(--pip);
 }
 
 /* ---------- screenshot ---------- */
@@ -363,8 +463,9 @@ body {
 .screenshot-wrap {
   width: 100%;
   max-width: 320px;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
+  border: 1px solid #004400;
 }
 
 .screenshot-wrap[hidden] {
@@ -374,6 +475,6 @@ body {
 .screenshot-img {
   width: 100%;
   display: block;
-  border-radius: 8px;
-  opacity: 0.9;
+  opacity: 0.85;
+  filter: saturate(0.5) brightness(0.9);
 }

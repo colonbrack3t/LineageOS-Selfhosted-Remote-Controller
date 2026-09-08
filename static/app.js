@@ -19,11 +19,15 @@
     fetch(`${fastBase}/kc/${kc}`).catch(() => {});
   }
 
-  // Attach click/touch handlers to all buttons with data-kc
-  document.querySelectorAll("[data-kc]").forEach((btn) => {
-    btn.addEventListener("click", () => sendKeycode(btn.dataset.kc));
+  // Touch feedback for all buttons
+  document.querySelectorAll("button").forEach((btn) => {
     btn.addEventListener("touchstart", () => btn.classList.add("active"), { passive: true });
     btn.addEventListener("touchend", () => btn.classList.remove("active"), { passive: true });
+  });
+
+  // Attach click handlers to all buttons with data-kc
+  document.querySelectorAll("[data-kc]").forEach((btn) => {
+    btn.addEventListener("click", () => sendKeycode(btn.dataset.kc));
   });
 
   // Mute state
@@ -48,6 +52,13 @@
 
   muteBtn.addEventListener("click", () => {
     muteBtn.classList.toggle("muted");
+  });
+
+  // Clear button — spam backspaces
+  document.getElementById("clear-btn").addEventListener("click", () => {
+    const remove = Math.min(10, textInput.value.length);
+    textInput.value = remove > 0 ? textInput.value.slice(0, -remove) : textInput.value;
+    for (let i = 0; i < 10; i++) queueKeycode(67);
   });
 
   // Screenshot
@@ -80,23 +91,26 @@
   const pages = [
     document.getElementById("page-controls"),
     document.getElementById("page-media"),
-    document.getElementById("page-screen"),
   ];
   const tabs = [
     document.getElementById("tab-controls"),
     document.getElementById("tab-media"),
-    document.getElementById("tab-screen"),
-  ];
+  ].filter(Boolean);
   const slider = document.getElementById("toggle-slider");
 
   function switchPage(idx) {
     pages.forEach((p, i) => { p.hidden = i !== idx; });
     tabs.forEach((t, i) => { t.classList.toggle("active", i === idx); });
-    slider.className = "toggle-slider" + (idx > 0 ? ` pos-${idx}` : "");
-    if (idx === 1) startMutePolling(); else stopMutePolling();
+    if (slider) slider.className = "toggle-slider" + (idx > 0 ? ` pos-${idx}` : "");
+    if (idx === 0) startMutePolling(); else stopMutePolling();
   }
 
   tabs.forEach((t, i) => t.addEventListener("click", () => switchPage(i)));
+
+  document.getElementById("more-btn").addEventListener("click", () => switchPage(1));
+  document.getElementById("back-btn").addEventListener("click", () => switchPage(0));
+
+  startMutePolling();
 
   // Text input — queue characters and send with debounce
   const textInput = document.getElementById("text-input");
@@ -146,6 +160,8 @@
       e.preventDefault();
       sendKeycode(66);
       textInput.value = "";
+    } else if (e.key === "Backspace" && textInput.value === "") {
+      queueKeycode(67);
     }
     e.stopPropagation();
   });
