@@ -6,6 +6,8 @@ Simple extendable remote controller for LineageOS / Android devices. Serves up a
 <img width="198" height="392" alt="Screenshot 2026-09-07 at 08 39 06" src="https://github.com/user-attachments/assets/4f2a4d54-df85-4b45-abd3-15f1839be896" />
 
 
+For a cool pipboy theme, check out the pipboy-theme branch!
+
 ## To use
 
 ### Prerequisite
